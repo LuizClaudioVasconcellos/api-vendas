@@ -11,7 +11,8 @@ export class CreateProducts1645046988561 implements MigrationInterface {
             name: 'id',
             type: 'int',
             isPrimary: true,
-            // generationStrategy: 'uuid',
+            generationStrategy: 'increment',
+            isGenerated: true,
             // default: 'uuid_generate_v4()', Náo da para usar pois não foi possível instalar extensão uuid-ossp
           },
           {
