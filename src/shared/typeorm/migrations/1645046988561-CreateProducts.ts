@@ -9,9 +9,9 @@ export class CreateProducts1645046988561 implements MigrationInterface {
         columns: [
           {
             name: 'id',
-            type: 'uuid',
+            type: 'int',
             isPrimary: true,
-            generationStrategy: 'uuid',
+            // generationStrategy: 'uuid',
             // default: 'uuid_generate_v4()', Náo da para usar pois não foi possível instalar extensão uuid-ossp
           },
           {
@@ -34,7 +34,7 @@ export class CreateProducts1645046988561 implements MigrationInterface {
             default: 'now()',
           },
           {
-            name: 'updatad_at',
+            name: 'updated_at',
             type: 'timestamp with time zone',
             default: 'now()',
           },
