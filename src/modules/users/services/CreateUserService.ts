@@ -2,7 +2,7 @@ import AppError from '@shared/errors/AppError';
 import { hash } from 'bcryptjs';
 import { getCustomRepository } from 'typeorm';
 import User from '../typeorm/entities/User';
-import { UsersReposirory } from '../typeorm/repositories/UsersRepository';
+import { UsersRepository } from '../typeorm/repositories/UsersRepository';
 
 interface IRequest {
   name: string;
@@ -12,7 +12,7 @@ interface IRequest {
 
 class CreateUserService {
   public async execute({ name, email, password }: IRequest): Promise<User> {
-    const usersReposirory = getCustomRepository(UsersReposirory);
+    const usersReposirory = getCustomRepository(UsersRepository);
     const emailExists = await usersReposirory.findByEmail(email);
 
     if (emailExists) {

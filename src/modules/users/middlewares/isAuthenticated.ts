@@ -1,5 +1,4 @@
 import { NextFunction, Request, Response } from 'express';
-// import { verify } from 'jsonwebtoken';
 import jwt from 'jsonwebtoken';
 import AppError from '@shared/errors/AppError';
 import authConfig from '@config/auth';
@@ -31,7 +30,6 @@ export default function isAuthenticated(
     if (err) {
       throw new AppError('Token invalid', 401);
     }
-    console.log(decoded);
     return next();
   });
 }
