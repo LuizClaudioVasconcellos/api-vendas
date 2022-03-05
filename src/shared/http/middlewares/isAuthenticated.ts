@@ -3,6 +3,12 @@ import jwt from 'jsonwebtoken';
 import AppError from '@shared/errors/AppError';
 import authConfig from '@config/auth';
 
+interface TokenPayload {
+  id: number;
+  iat: number;
+  exp: number;
+}
+
 export default function isAuthenticated(
   request: Request,
   reponse: Response,
@@ -30,6 +36,13 @@ export default function isAuthenticated(
     if (err) {
       throw new AppError('Token invalid', 401);
     }
+
+    const { id } = decoded as TokenPayload;
+
+    request.userId = {
+      id: id,
+    };
+
     return next();
   });
 }
