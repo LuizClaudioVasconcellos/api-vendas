@@ -12,8 +12,8 @@ interface IRequest {
 
 class CreateUserService {
   public async execute({ name, email, password }: IRequest): Promise<User> {
-    const usersReposirory = getCustomRepository(UsersRepository);
-    const emailExists = await usersReposirory.findByEmail(email);
+    const usersRepository = getCustomRepository(UsersRepository);
+    const emailExists = await usersRepository.findByEmail(email);
 
     if (emailExists) {
       throw new AppError('Email address already use');
@@ -21,13 +21,13 @@ class CreateUserService {
 
     const hashedPassword = await hash(password, 8);
 
-    const user = usersReposirory.create({
+    const user = usersRepository.create({
       name,
       email,
       password: hashedPassword,
     });
 
-    await usersReposirory.save(user);
+    await usersRepository.save(user);
 
     return user;
   }

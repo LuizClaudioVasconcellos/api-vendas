@@ -3,7 +3,7 @@ import jwt from 'jsonwebtoken';
 import AppError from '@shared/errors/AppError';
 import authConfig from '@config/auth';
 
-interface TokenPayload {
+interface ITokenPayload {
   id: number;
   iat: number;
   exp: number;
@@ -37,7 +37,7 @@ export default function isAuthenticated(
       throw new AppError('Token invalid', 401);
     }
 
-    const { id } = decoded as TokenPayload;
+    const { id } = decoded as ITokenPayload;
 
     request.userId = {
       id: id,
