@@ -27,37 +27,37 @@ export default class CustomersController {
   public async create(request: Request, response: Response): Promise<Response> {
     const { name, email } = request.body;
 
-    const createProduct = new CreateCustomerService();
+    const createCustomer = new CreateCustomerService();
 
-    const product = await createProduct.execute({
+    const customer = await createCustomer.execute({
       name,
       email,
     });
 
-    return response.json(product);
+    return response.json(customer);
   }
 
   public async update(request: Request, response: Response): Promise<Response> {
     const { name, email } = request.body;
     const { customer_id } = request.params;
 
-    const updateProduct = new UpdateCustomerService();
+    const updateCustomer = new UpdateCustomerService();
 
-    const product = await updateProduct.execute({
+    const customer = await updateCustomer.execute({
       customer_id,
       name,
       email,
     });
 
-    return response.json(product);
+    return response.json(customer);
   }
 
   public async delete(request: Request, response: Response): Promise<Response> {
     const { customer_id } = request.params;
 
-    const deleteProduct = new DeleteCustomerService();
+    const deleteCustomer = new DeleteCustomerService();
 
-    await deleteProduct.execute({ customer_id });
+    await deleteCustomer.execute({ customer_id });
 
     return response.json([]);
   }
