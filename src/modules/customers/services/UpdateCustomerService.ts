@@ -15,6 +15,9 @@ class UpdateCustomerService {
     name,
     email,
   }: IRequest): Promise<Customer> {
+    if (isNaN(customer_id)) {
+      throw new AppError('Invalid customer_id');
+    }
     const customersRepository = getCustomRepository(CustomersRepository);
 
     const customer = await customersRepository.findById(customer_id);

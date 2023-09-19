@@ -15,11 +15,13 @@ export default class CustomersController {
   }
 
   public async show(request: Request, response: Response): Promise<Response> {
-    const { customer_id } = request.params;
+    const { id } = request.params;
 
     const showCustomer = new ShowCustomerService();
 
-    const customer = await showCustomer.execute({ customer_id });
+    const customer = await showCustomer.execute({
+      customer_id: Number(id),
+    });
 
     return response.json(customer);
   }
@@ -39,12 +41,12 @@ export default class CustomersController {
 
   public async update(request: Request, response: Response): Promise<Response> {
     const { name, email } = request.body;
-    const { customer_id } = request.params;
+    const { id } = request.params;
 
     const updateCustomer = new UpdateCustomerService();
 
     const customer = await updateCustomer.execute({
-      customer_id: Number(customer_id),
+      customer_id: Number(id),
       name,
       email,
     });
@@ -53,11 +55,11 @@ export default class CustomersController {
   }
 
   public async delete(request: Request, response: Response): Promise<Response> {
-    const { customer_id } = request.params;
+    const { id } = request.params;
 
     const deleteCustomer = new DeleteCustomerService();
 
-    await deleteCustomer.execute({ customer_id });
+    await deleteCustomer.execute({ id });
 
     return response.json([]);
   }
