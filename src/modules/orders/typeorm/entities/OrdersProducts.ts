@@ -16,13 +16,19 @@ class OrdersProducts {
   @PrimaryGeneratedColumn('increment')
   id: number;
 
-  @ManyToOne(() => Order, order => order.orders_products)
+  @ManyToOne(() => Order, order => order.order_products)
   @JoinColumn({ name: 'order_id' })
   order: Order;
 
   @ManyToOne(() => Product, product => product.orders_products)
   @JoinColumn({ name: 'product_id' })
   product: Product;
+
+  @Column('int')
+  order_id: number;
+
+  @Column('int')
+  product_id: number;
 
   @Column('decimal')
   price: number;
