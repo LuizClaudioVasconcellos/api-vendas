@@ -1,5 +1,7 @@
 import { Request, Response } from 'express';
 import CreateSessionsService from '../services/CreateSessionsService';
+import { plainToClass } from 'class-transformer';
+import UserResponseDTO from '../dtos/UserResponseDTO';
 
 export default class SessionsController {
   public async auth(request: Request, response: Response): Promise<Response> {
@@ -12,6 +14,21 @@ export default class SessionsController {
       password,
     });
 
-    return response.json(userAuthenticated);
+    const userResponseDTO = plainToClass(
+      UserResponseDTO,
+      userAuthenticated.user,
+      {
+        excludeExtraneousValues: true,
+      },
+    );
+    const userWithAvatarUrl = {
+      ...userResponseDTO,
+      avatar: userResponseDTO.avatarUrl,
+    };
+
+    return response.json({
+      user: userWithAvatarUrl,
+      token: userAuthenticated.token,
+    });
   }
 }
