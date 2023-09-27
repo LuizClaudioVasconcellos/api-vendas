@@ -7,6 +7,25 @@ interface IRequest {
   customer_id: number;
 }
 
+/**
+ * @openapi
+ * components:
+ *   schema:
+ *     ShowCustomerResponse:
+ *       type: object
+ *       properties:
+ *         id:
+ *           type: integer
+ *         name:
+ *           type: string
+ *         email:
+ *           type: string
+ *         created_at:
+ *           type: string
+ *         updated_at:
+ *           type: string
+ */
+
 class ShowCustomerService {
   public async execute({ customer_id }: IRequest): Promise<Customer> {
     if (isNaN(customer_id)) {

@@ -9,12 +9,15 @@ import routes from './routes';
 import AppError from '@shared/errors/AppError';
 import '@shared/typeorm';
 import uploadConfig from '@config/upload';
+import swagger from '../../docs/swagger';
 import rateLimiter from './middlewares/rateLimiter';
 
 const app = express();
 
 app.use(cors());
 app.use(express.json());
+
+swagger(app);
 
 app.use(rateLimiter);
 

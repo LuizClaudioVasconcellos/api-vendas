@@ -32,6 +32,9 @@
       "@config/*": [
         "src/config/*"
       ],
+      "@docs/*": [
+        "src/docs/*"
+      ],
       "@modules/*": [
         "src/modules/*"
       ],

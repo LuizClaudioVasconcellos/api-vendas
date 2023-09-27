@@ -9,6 +9,33 @@ interface IRequest {
   email: string;
 }
 
+/**
+ * @openapi
+ * components:
+ *   schema:
+ *     UpdateCustomerRequest:
+ *       type: object
+ *       properties:
+ *         name:
+ *           type: string
+ *         email:
+ *           type: string
+ *           format: email
+ *     UpdateCustomerResponse:
+ *       type: object
+ *       properties:
+ *         id:
+ *           type: integer
+ *         name:
+ *           type: string
+ *         email:
+ *           type: string
+ *         created_at:
+ *           type: string
+ *         updated_at:
+ *           type: string
+ */
+
 class UpdateCustomerService {
   public async execute({
     customer_id,

@@ -16,6 +16,43 @@ interface IResponse {
   token: string;
 }
 
+/**
+ * @openapi
+ *  components:
+ *    schema:
+ *      CreateSessionInput:
+ *        required:
+ *          -email
+ *          -password
+ *        properties:
+ *          email:
+ *            type: string
+ *            default: Test@test.com
+ *          password:
+ *            type: string
+ *            default: 1234Qz@
+ *      CreateSessionResponse:
+ *        type:
+ *        properties:
+ *          user:
+ *            type: object
+ *            properties:
+ *              id:
+ *                type: integer
+ *              name:
+ *                type: string
+ *              email:
+ *                type: string
+ *              avatar:
+ *                type: string
+ *              created_at:
+ *                type: string
+ *              updated_at:
+ *                type: string
+ *          token:
+ *            type: string
+ */
+
 class CreateSessionsService {
   public async execute({ email, password }: IRequest): Promise<IResponse> {
     const usersRepository = getCustomRepository(UsersRepository);
