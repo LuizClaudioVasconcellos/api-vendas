@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
-import jwt from 'jsonwebtoken';
+import jwt, { Secret } from 'jsonwebtoken';
 import AppError from '@shared/errors/AppError';
 import authConfig from '@config/auth';
 
@@ -32,7 +32,7 @@ export default function isAuthenticated(
     throw new AppError('Token malformated', 401);
   }
 
-  jwt.verify(token, authConfig.jwt.secret, (err, decoded) => {
+  jwt.verify(token, authConfig.jwt.secret as Secret, (err, decoded) => {
     if (err) {
       throw new AppError('Token invalid', 401);
     }
