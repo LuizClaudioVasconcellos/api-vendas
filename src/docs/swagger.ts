@@ -10,7 +10,7 @@ const options: swaggerJSDoc.Options = {
       version: '1.0.0',
     },
     components: {
-      securitySchemas: {
+      securitySchemes: {
         bearerAuth: {
           type: 'http',
           scheme: 'bearer',

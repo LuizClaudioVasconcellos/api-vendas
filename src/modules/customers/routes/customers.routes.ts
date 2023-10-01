@@ -20,7 +20,7 @@ const customersController = new CustomersController();
  *     summary: List all customers
  *     tags: [Customers]
  *     security:
- *       - bearerAuth: []
+ *      - bearerAuth: []
  *     responses:
  *       200:
  *         description: List of customers
@@ -28,8 +28,12 @@ const customersController = new CustomersController();
  *           application/json:
  *             schema:
  *               $ref: '#/components/schema/ListCustomerResponse'
- *       401:
+ *       '400':
+ *         description: Bad Request
+ *       '401':
  *         description: Unauthorized
+ *       '429':
+ *         description: Too Many Requests
  *       500:
  *         description: Internal Server Error
  */
@@ -64,6 +68,8 @@ customersRouter.get('/', isAuthenticated, customersController.index);
  *         description: Unauthorized
  *       '404':
  *         description: Customer not found
+ *       '429':
+ *         description: Too Many Requests
  */
 
 customersRouter.get(
