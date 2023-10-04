@@ -10,6 +10,29 @@ interface IRequest {
   password: string;
 }
 
+/**
+ * @openapi
+ * components:
+ *  schema:
+ *    ResetPasswordRequest:
+ *      type: object
+ *      properties:
+ *        token:
+ *          type: string
+ *        password:
+ *          type: string
+ *        password_corfirmation:
+ *          type: string
+ *      required:
+ *        - token
+ *        - password
+ *        - password_confirmation
+ *      example:
+ *        token: "cbbe279e-7d01-4a27-9098-a6b9d139dd7c"
+ *        password: "123456"
+ *        password_confirmation: "123456"
+ */
+
 class ResetPasswordService {
   public async execute({ token, password }: IRequest): Promise<void> {
     const usersRepository = getCustomRepository(UsersRepository);

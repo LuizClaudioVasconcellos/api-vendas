@@ -12,6 +12,65 @@ interface IRequest {
   old_password?: string;
 }
 
+/**
+ * @openapi
+ * components:
+ *   schema:
+ *     UpdateProfileRequest:
+ *       type: object
+ *       properties:
+ *         name:
+ *           type: string
+ *         email:
+ *           type: string
+ *           format: email
+ *         old_password:
+ *           type: string
+ *         password:
+ *           type: string
+ *           minLength: 6
+ *         password_confirmation:
+ *           type: string
+ *           minLength: 6
+ *       required:
+ *         - name
+ *         - email
+ *       example:
+ *         name: "luiz"
+ *         email: "luiz@gmail.com"
+ *         old_password: "123"
+ *         password: "123456"
+ *         password_confirmation: "123456"
+ *         description: |
+ *           Optional fields for changing password only. If you want to change the password, provide the old (old_password) and the new (password and password_confirmation).
+ *
+ *     UpdateProfileResponse:
+ *       type: object
+ *       properties:
+ *         id:
+ *           type: integer
+ *         name:
+ *           type: string
+ *         email:
+ *           type: string
+ *         avatar:
+ *           type: string
+ *           format: uri
+ *         created_at:
+ *           type: string
+ *           format: date-time
+ *         updated_at:
+ *           type: string
+ *           format: date-time
+ *       example:
+ *         id: 2
+ *         name: "luiz"
+ *         email: "luiz@gmail.com"
+ *         avatar: "http://localhost:3333/files/620526eff47e300fc240-00bf60c4153911ee97e076634f4cece5.jpg"
+ *         created_at: "2023-09-20T23:55:08.390Z"
+ *         updated_at: "2023-09-21T01:26:47.723Z"
+ */
+
 class UpdateProfileService {
   public async execute({
     user_id,

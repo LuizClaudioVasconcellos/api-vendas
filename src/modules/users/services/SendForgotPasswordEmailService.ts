@@ -9,6 +9,21 @@ interface IRequest {
   email: string;
 }
 
+/**
+ * @openapi
+ * components:
+ *  schema:
+ *    ForgotPasswordRequest:
+ *      type: object
+ *      properties:
+ *        email:
+ *          type: string
+ *      required:
+ *        - email
+ *      example:
+ *        email: "luiz@gmail.com"
+ */
+
 class SendForgotPasswordEmailService {
   public async execute({ email }: IRequest): Promise<void> {
     const usersRepository = getCustomRepository(UsersRepository);

@@ -16,7 +16,7 @@ const sessionsController = new SessionsController();
  * @openapi
  * /auth:
  *   post:
- *     summary: Autenticar e obter um token JWT
+ *     summary: Authenticate and obtain a JWT token
  *     tags: [Auth]
  *     requestBody:
  *       required: true
@@ -26,17 +26,17 @@ const sessionsController = new SessionsController();
  *             $ref: '#components/schema/CreateSessionInput'
  *     responses:
  *        '200':
- *          description: Autenticação bem-sucedida, retorna um token JWT
+ *          description: Authentication successful, returns a JWT token
  *          content:
  *            application/json:
  *              schema:
  *                $ref: '#components/schema/CreateSessionResponse'
  *        '400':
- *          description: Requisição inválida
+ *          description: Bad Request
  *        '401':
- *          description: Combinação de e-mail/senha incorreta
+ *          description: Incorrect email/password combination
  *        '429':
- *          description: Muitas solicitações
+ *          description: Too Many Requests
  */
 
 sessionsRouter.post(

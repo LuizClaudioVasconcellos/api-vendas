@@ -12,7 +12,68 @@ const usersAvatarController = new UserAvatarController();
 
 const upload = multer(uploadConfig);
 
+/**
+ * @openapi
+ * tags:
+ *   name: Users
+ *   description: Users management
+ */
+
+/**
+ * @openapi
+ * /users:
+ *   get:
+ *     summary: Get a list of users
+ *     tags:
+ *       [Users]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       '200':
+ *         description: List of users
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schema/ListUserResponse'
+ *       '400':
+ *         description: Bad Request
+ *       '401':
+ *         description: Unauthorized
+ *       '429':
+ *         description: Too Many Requests
+ */
+
 usersRouter.get('/', isAuthenticated, usersController.index);
+
+/**
+ * @openapi
+ * /users:
+ *   post:
+ *     summary: Create a new user
+ *     tags:
+ *       [Users]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schema/CreateUserRequest'
+ *     responses:
+ *       '200':
+ *         description: User created successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schema/CreateUserResponse'
+ *       '400':
+ *         description: Bad Request
+ *       '401':
+ *         description: Unauthorized
+ *       '429':
+ *         description: Too Many Requests
+ */
 
 usersRouter.post(
   '/',
@@ -25,6 +86,33 @@ usersRouter.post(
   }),
   usersController.create,
 );
+
+/**
+ * @openapi
+ * /users/avatar:
+ *   patch:
+ *     summary: Upload a user's avatar
+ *     tags:
+ *       [Users]
+ *     requestBody:
+ *       content:
+ *         multipart/form-data:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               avatar:
+ *                 type: string
+ *                 format: binary
+ *     responses:
+ *       '200':
+ *         description: Avatar uploaded successfully
+ *       '400':
+ *         description: Bad Request
+ *       '401':
+ *         description: Unauthorized
+ *       '429':
+ *         description: Too Many Requests
+ */
 
 usersRouter.patch(
   '/avatar',

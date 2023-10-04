@@ -4,33 +4,41 @@ import Customer from '../typeorm/entities/Customer';
 import { CustomersRepository } from '../typeorm/repositories/CustomersRepository';
 
 /**
- * @openapi
- *  components:
- *    schema:
- *      CreateCustumerInput:
- *        required:
- *          -name
- *          -email
- *        properties:
- *          name:
- *            type: string
- *            default: Test
- *          email:
- *            type: string
- *            default: test@example.com
- *      CreateCustumerResponse:
- *        type:
- *        properties:
- *          name:
- *            type: string
- *          email:
- *            type: string
- *          id:
- *            type: integer
- *          created_at:
- *            type: string
- *          updated_at:
- *            type: string
+ /**
+ * @swagger
+ * components:
+ *   schema:
+ *     CreateCustumerInput:
+ *       required:
+ *         - name
+ *         - email
+ *       properties:
+ *         name:
+ *           type: string
+ *         email:
+ *           type: string
+ *       example:
+ *        name: "Ariane"
+ *        email: "Ariane@hotmail.com"
+ *     CreateCustumerResponse:
+ *       type: object
+ *       properties:
+ *         name:
+ *           type: string
+ *         email:
+ *           type: string
+ *         id:
+ *           type: integer
+ *         created_at:
+ *           type: string
+ *         updated_at:
+ *           type: string
+ *       example:
+ *         name: "Ariane"
+ *         email: "Ariane@hotmail.com"
+ *         id: 6
+ *         created_at: "2023-09-23T05:49:27.345Z"
+ *         updated_at: "2023-09-23T05:49:27.345Z"
  */
 
 interface IRequest {

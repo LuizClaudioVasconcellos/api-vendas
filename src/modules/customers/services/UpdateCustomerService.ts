@@ -21,6 +21,9 @@ interface IRequest {
  *         email:
  *           type: string
  *           format: email
+ *       example:
+ *        name: "Patrick"
+ *        email: "patrick@gmail.com"
  *     UpdateCustomerResponse:
  *       type: object
  *       properties:
@@ -34,6 +37,12 @@ interface IRequest {
  *           type: string
  *         updated_at:
  *           type: string
+ *       example:
+ *         id: 2
+ *         name: "Patrick"
+ *         email: "patrick@gmail.com"
+ *         created_at: "2023-09-19T18:45:39.196Z"
+ *         updated_at: "2023-09-19T20:12:10.646Z"
  */
 
 class UpdateCustomerService {

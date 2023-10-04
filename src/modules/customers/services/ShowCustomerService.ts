@@ -8,7 +8,7 @@ interface IRequest {
 }
 
 /**
- * @openapi
+ * @swagger
  * components:
  *   schema:
  *     ShowCustomerResponse:
@@ -24,6 +24,12 @@ interface IRequest {
  *           type: string
  *         updated_at:
  *           type: string
+ *       example:
+ *         id: 3
+ *         name: "Patrick"
+ *         email: "Patrick@hotmail.com"
+ *         created_at: "2023-09-19T20:19:56.975Z"
+ *         updated_at: "2023-09-19T20:19:56.975Z"
  */
 
 class ShowCustomerService {

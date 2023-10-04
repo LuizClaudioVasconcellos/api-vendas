@@ -14,7 +14,7 @@ interface IPaginateCustomer {
 }
 
 /**
- * @openapi
+ * @swagger
  * components:
  *   schema:
  *     ListCustomerResponse:
@@ -51,6 +51,36 @@ interface IPaginateCustomer {
  *                 type: string
  *               updated_at:
  *                 type: string
+ *       example:
+ *         from: 1
+ *         to: 4
+ *         per_page: 15
+ *         total: 4
+ *         current_page: 1
+ *         prev_page: null
+ *         next_page: null
+ *         last_page: 1
+ *         data:
+ *           - id: 3
+ *             name: "Patrick"
+ *             email: "Patrick@hotmail.com"
+ *             created_at: "2023-09-19T20:19:56.975Z"
+ *             updated_at: "2023-09-19T20:19:56.975Z"
+ *           - id: 5
+ *             name: "Luiz"
+ *             email: "Luiz@hotmail.com"
+ *             created_at: "2023-09-19T20:51:18.650Z"
+ *             updated_at: "2023-09-19T20:51:18.650Z"
+ *           - id: 6
+ *             name: "Ariane"
+ *             email: "Ariane@hotmail.com"
+ *             created_at: "2023-09-23T05:49:27.345Z"
+ *             updated_at: "2023-09-23T05:49:27.345Z"
+ *           - id: 7
+ *             name: "João"
+ *             email: "Joao@hotmail.com"
+ *             created_at: "2023-09-30T23:25:43.894Z"
+ *             updated_at: "2023-09-30T23:25:43.894Z"
  */
 
 class ListCustomerService {

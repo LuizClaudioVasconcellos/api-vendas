@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import CustomersController from '../Controllers/CustomersController';
+import CustomersController from '../controllers/CustomersController';
 import { celebrate, Joi, Segments } from 'celebrate';
 import isAuthenticated from '@shared/http/middlewares/isAuthenticated';
 
@@ -34,7 +34,7 @@ const customersController = new CustomersController();
  *         description: Unauthorized
  *       '429':
  *         description: Too Many Requests
- *       500:
+ *       '500':
  *         description: Internal Server Error
  */
 
@@ -42,7 +42,7 @@ customersRouter.get('/', isAuthenticated, customersController.index);
 
 /**
  * @openapi
- * /customers/{id}:
+ * /customers/id:
  *   get:
  *     summary: Get a customer by ID
  *     tags: [Customers]
@@ -70,6 +70,8 @@ customersRouter.get('/', isAuthenticated, customersController.index);
  *         description: Customer not found
  *       '429':
  *         description: Too Many Requests
+ *       '500':
+ *         description: Internal Server Error
  */
 
 customersRouter.get(
@@ -87,7 +89,7 @@ customersRouter.get(
  * @openapi
  *  /customers:
  *    post:
- *      summary: Create a new custumer
+ *      summary: Create a new customer
  *      tags: [Customers]
  *      security:
  *        - bearerAuth: []
@@ -111,6 +113,8 @@ customersRouter.get(
  *          description: Unauthorized
  *        '429':
  *          description: Too Many Requests
+ *        '500':
+ *          description: Internal Server Error
  */
 
 customersRouter.post(
@@ -127,7 +131,7 @@ customersRouter.post(
 
 /**
  * @openapi
- * /customers/{id}:
+ * /customers/id:
  *   put:
  *     summary: Update a customer by ID
  *     tags: [Customers]
@@ -137,7 +141,7 @@ customersRouter.post(
  *       - in: path
  *         name: id
  *         required: true
- *         description: ID do cliente a ser atualizado
+ *         description: Customer ID to be updated
  *         schema:
  *           type: integer
  *     requestBody:
@@ -148,17 +152,21 @@ customersRouter.post(
  *             $ref: '#components/schema/UpdateCustomerRequest'
  *     responses:
  *       '200':
- *         description: Cliente atualizado com sucesso
+ *         description: Customer updated successfully
  *         content:
  *           application/json:
  *             schema:
  *               $ref: '#components/schema/UpdateCustomerResponse'
  *       '400':
- *         description: Requisição inválida
+ *         description: Bad Request
  *       '401':
- *         description: Não autorizado
+ *         description: Unauthorized
  *       '404':
- *         description: Cliente não encontrado
+ *         description: Customer not found
+ *       '429':
+ *         description: Too Many Requests
+ *       '500':
+ *         description: Internal Server Error
  */
 
 customersRouter.put(
@@ -178,7 +186,7 @@ customersRouter.put(
 
 /**
  * @openapi
- * /customers/{id}:
+ * /customers/id:
  *   delete:
  *     summary: Delete a customer by ID
  *     tags: [Customers]
@@ -188,17 +196,21 @@ customersRouter.put(
  *       - in: path
  *         name: id
  *         required: true
- *         description: ID do cliente a ser deletado
+ *         description: Customer ID to be deleted
  *         schema:
  *           type: integer
  *           format: int64
  *     responses:
- *       '204':
- *         description: Cliente deletado com sucesso
+ *       '200':
+ *         description: Customer deleted successfully
  *       '401':
- *         description: Não autorizado
+ *         description: Unauthorized
  *       '404':
- *         description: Cliente não encontrado
+ *         description: Customer not found
+ *       '429':
+ *         description: Too Many Requests
+ *       '500':
+ *         description: Internal Server Error
  */
 
 customersRouter.delete(

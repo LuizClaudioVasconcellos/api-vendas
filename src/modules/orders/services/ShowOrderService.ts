@@ -7,6 +7,60 @@ interface IRequest {
   id: number;
 }
 
+/**
+ * @openapi
+ * components:
+ *   schema:
+ *     ShowOrderResponse:
+ *       type: object
+ *       properties:
+ *         id:
+ *           type: integer
+ *         created_at:
+ *           type: string
+ *           format: date-time
+ *         updated_at:
+ *           type: string
+ *           format: date-time
+ *         order_products:
+ *           type: array
+ *           items:
+ *             type: object
+ *             properties:
+ *               id:
+ *                 type: integer
+ *               order_id:
+ *                 type: integer
+ *               product_id:
+ *                 type: integer
+ *               price:
+ *                 type: string
+ *                 format: decimal
+ *               quantity:
+ *                 type: integer
+ *               created_at:
+ *                 type: string
+ *                 format: date-time
+ *               updated_at:
+ *                 type: string
+ *                 format: date-time
+ *         customer:
+ *           type: object
+ *           properties:
+ *             id:
+ *               type: integer
+ *             name:
+ *               type: string
+ *             email:
+ *               type: string
+ *             created_at:
+ *               type: string
+ *               format: date-time
+ *             updated_at:
+ *               type: string
+ *               format: date-time
+ */
+
 class ShowOrderService {
   public async execute({ id }: IRequest): Promise<Order> {
     const ordersRepository = getCustomRepository(OrdersRepository);

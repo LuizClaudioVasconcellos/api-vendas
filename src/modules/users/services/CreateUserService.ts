@@ -10,6 +10,49 @@ interface IRequest {
   password: string;
 }
 
+/**
+ * @openapi
+ * components:
+ *   schema:
+ *     CreateUserRequest:
+ *       type: object
+ *       properties:
+ *         name:
+ *           type: string
+ *         email:
+ *           type: string
+ *         password:
+ *           type: string
+ *       required:
+ *         - name
+ *         - email
+ *         - password
+ *       example:
+ *         name: "Shrek"
+ *         email: "shrek@gmail.com"
+ *         password: "123456"
+ *
+ *     CreateUserResponse:
+ *       type: object
+ *       properties:
+ *         id:
+ *           type: integer
+ *         name:
+ *           type: string
+ *         email:
+ *           type: string
+ *         created_at:
+ *           type: string
+ *         updated_at:
+ *           type: string
+ *       example:
+ *         id: 3
+ *         name: "Shrek"
+ *         email: "shrek@gmail.com"
+ *         created_at: "2023-09-21T00:15:05.373Z"
+ *         updated_at: "2023-09-21T00:15:05.373Z"
+ */
+
 class CreateUserService {
   public async execute({ name, email, password }: IRequest): Promise<User> {
     const usersRepository = getCustomRepository(UsersRepository);
