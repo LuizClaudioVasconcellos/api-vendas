@@ -2,6 +2,7 @@ import { NextFunction, Request, Response } from 'express';
 import jwt, { Secret } from 'jsonwebtoken';
 import AppError from '@shared/errors/AppError';
 import authConfig from '@config/auth';
+import RedisCache from '@shared/cache/RedisCache';
 
 interface ITokenPayload {
   id: number;
@@ -9,11 +10,11 @@ interface ITokenPayload {
   exp: number;
 }
 
-export default function isAuthenticated(
+export default async function isAuthenticated(
   request: Request,
   reponse: Response,
   next: NextFunction,
-): void {
+): Promise<void> {
   const authHeader = request.headers.authorization;
 
   if (!authHeader) {
@@ -32,10 +33,8 @@ export default function isAuthenticated(
     throw new AppError('Token malformated', 401);
   }
 
-  jwt.verify(token, authConfig.jwt.secret as Secret, (err, decoded) => {
-    if (err) {
-      throw new AppError('Token invalid', 401);
-    }
+  try {
+    const decoded = jwt.verify(token, authConfig.jwt.secret as Secret);
 
     const { id } = decoded as ITokenPayload;
 
@@ -43,6 +42,26 @@ export default function isAuthenticated(
       id: id,
     };
 
+    const redisCache = new RedisCache();
+
+    const isValidToken = await redisCache.exists(
+      `api-vendas-VALID-TOKENS:${request.userId.id}`,
+    );
+
+    if (!isValidToken) {
+      throw new AppError('Token is invalid', 401);
+    }
+
+    const isInvalidToken = await redisCache.exists(
+      `api-vendas-INVALID-TOKENS:${request.userId.id}:${token}`,
+    );
+
+    if (isInvalidToken) {
+      throw new AppError('Token is invalid', 401);
+    }
+
     return next();
-  });
+  } catch (err) {
+    throw new AppError('Token invalid', 401);
+  }
 }

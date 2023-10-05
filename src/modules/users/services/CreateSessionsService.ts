@@ -5,6 +5,7 @@ import authConfig from '@config/auth';
 import { getCustomRepository } from 'typeorm';
 import User from '../typeorm/entities/User';
 import { UsersRepository } from '../typeorm/repositories/UsersRepository';
+import RedisCache from '@shared/cache/RedisCache';
 
 interface IRequest {
   email: string;
@@ -78,9 +79,45 @@ class CreateSessionsService {
       throw new AppError('Incorrect e-mail/password combination', 401);
     }
 
+    if (typeof authConfig.jwt.secret !== 'string') {
+      throw new Error(
+        'The JWT secret setting is missing or not a valid string.',
+      );
+    }
+
+    const redisCache = new RedisCache();
+
+    const isTokenValid = await redisCache.exists(
+      `api-vendas-VALID-TOKENS:${user.id}`,
+    );
+
+    const expirationInSeconds = 24 * 60 * 60;
+
+    let previusToken: string | null = null;
+
+    if (isTokenValid) {
+      previusToken = await redisCache.recover(
+        `api-vendas-VALID-TOKENS:${user.id}`,
+      );
+
+      if (previusToken) {
+        await redisCache.save(
+          `api-vendas-INVALID-TOKENS:${user.id}:${previusToken}`,
+          true,
+          expirationInSeconds,
+        );
+      }
+    }
+
     const token = sign({ id: user.id }, authConfig.jwt.secret, {
       expiresIn: authConfig.jwt.expiresIn,
     });
+
+    await redisCache.save(
+      `api-vendas-VALID-TOKENS:${user.id}`,
+      token,
+      expirationInSeconds,
+    );
 
     return { user, token };
   }
